@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammad Attar — The World Is Waiting</title>
+  <meta
+    name="description"
+    content="Mohammad Attar's journey through 195 countries."
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(71, 113, 255, .18), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(0, 220, 255, .12), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(130, 70, 255, .12), transparent 30%),
+        #050816;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .35;
+      background-image:
+        radial-gradient(circle, #fff 1px, transparent 1px);
+      background-size: 90px 90px;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5, 8, 22, .55);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 25px;
+      font-size: 13px;
+      color: #b9c3df;
+    }
+
+    nav .links a:hover {
+      color: #fff;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 950px;
+    }
+
+    .eyebrow {
+      color: #8fa7ff;
+      letter-spacing: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 110px);
+      line-height: .95;
+      letter-spacing: -5px;
+      margin-bottom: 28px;
+    }
+
+    .hero-text {
+      font-size: clamp(18px, 3vw, 28px);
+      color: #dbe3ff;
+      margin-bottom: 35px;
+    }
+
+    .hero-sub {
+      color: #8792b5;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 35px;
+      padding: 15px 26px;
+      border-radius: 999px;
+      background: #fff;
+      color: #07101e;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 45px rgba(255,255,255,.18);
+    }
+
+    section {
+      padding: 110px 6%;
+    }
+
+    .section-head {
+      max-width: 800px;
+      margin-bottom: 45px;
+    }
+
+    .section-label {
+      color: #8fa7ff;
+      letter-spacing: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 6vw, 72px);
+      letter-spacing: -3px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      color: #8994b7;
+      line-height: 1.8;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 35px;
+    }
+
+    .filter {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      color: #c5cde4;
+      border-radius: 999px;
+      padding: 10px 17px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .filter:hover,
+    .filter.active {
+      background: #fff;
+      color: #07101e;
+    }
+
+    #count {
+      color: #7783a8;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .countries {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .country {
+      position: relative;
+      min-height: 190px;
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .country::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      right: -55px;
+      bottom: -60px;
+      background: rgba(116, 143, 255, .12);
+      filter: blur(10px);
+    }
+
+    .country:hover {
+      transform: translateY(-7px);
+      border-color: rgba(143,167,255,.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    }
+
+    .country-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+    }
+
+    .continent {
+      font-size: 28px;
+    }
+
+    .status {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #8fa7ff;
+      font-weight: 800;
+    }
+
+    .country h3 {
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .country p {
+      color: #7783a8;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .journey {
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: center;
+    }
+
+    .journey-box {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .quote {
+      font-size: clamp(28px, 5vw, 55px);
+      line-height: 1.2;
+      margin: 30px 0;
+    }
+
+    .journey p {
+      color: #8994b7;
+      line-height: 1.9;
+    }
+
+    footer {
+      padding: 45px 6%;
+      text-align: center;
+      color: #687391;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1000px) {
+      .countries {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      nav .links {
+        display: none;
+      }
+
+      .countries {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      section {
+        padding: 80px 5%;
+      }
+
+      .country {
+        min-height: 175px;
+        padding: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .countries {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">MOHAMMAD ATTAR</div>
+
+    <div class="links">
+      <a href="#start">SPACE</a>
+      <a href="#world">THE WORLD</a>
+      <a href="#journey">MY JOURNEY</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="start">
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          ONE PLANET · ONE JOURNEY
+        </div>
+
+        <h1>
+          The World<br />
+          Is Waiting.
+        </h1>
+
+        <p class="hero-text">
+          من محمد عطارم — و قراره کل دنیا رو باهم ببینیم 🌍
+        </p>
+
+        <p class="hero-sub">
+          195 countries. Countless stories.
+          One journey around our planet.
+        </p>
+
+        <a class="btn" href="#world">
+          شروع سفر ✦
+        </a>
+
+      </div>
+    </section>
+
+
+    <section id="world">
+
+      <div class="section-head">
+
+        <div class="section-label">
+          THE WORLD
+        </div>
+
+        <h2>
+          195 destinations.
+        </h2>
+
+        <p>
+          ۱۹۵ کشور. مقصدهای بی‌نهایت.
+          اینجا نقشه‌ی سفر من به دور دنیاست.
+        </p>
+
+      </div>
+
+      <div class="filters">
+
+        <button class="filter active" data-filter="All">
+          All
+        </button>
+
+        <button class="filter" data-filter="Asia">
+          🌏 Asia
+        </button>
+
+        <button class="filter" data-filter="Europe">
+          🌍 Europe
+        </button>
+
+        <button class="filter" data-filter="Africa">
+          🌍 Africa
+        </button>
+
+        <button class="filter" data-filter="North America">
+          🌎 North America
+        </button>
+
+        <button class="filter" data-filter="South America">
+          🌎 South America
+        </button>
+
+        <button class="filter" data-filter="Oceania">
+          🌊 Oceania
+        </button>
+
+      </div>
+
+      <div id="count"></div>
+
+      <div class="countries" id="countries"></div>
+
+    </section>
+
+
+    <section class="journey" id="journey">
+
+      <div class="journey-box">
+
+        <div class="section-label">
+          MY JOURNEY
+        </div>
+
+        <div class="quote">
+          «دنیا برای دیدن ساخته شده،
+          نه فقط برای شنیدن درباره‌اش.»
+        </div>
+
+        <p>
+          این سایت فقط یک لیست از کشورها نیست.
+          قرار است با هر سفر، یک داستان، یک تصویر،
+          یک شهر و یک خاطره به آن اضافه شود.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    © 2026 Mohammad Attar · The World Is Waiting 🌍
+  </footer>
+
+
+<script>
+
+const countries = [
+
+/* ASIA */
+
+["Afghanistan","Asia"],
+["Armenia","Asia"],
+["Azerbaijan","Asia"],
+["Bahrain","Asia"],
+["Bangladesh","Asia"],
+["Bhutan","Asia"],
+["Brunei","Asia"],
+["Cambodia","Asia"],
+["China","Asia"],
+["Cyprus","Asia"],
+["Georgia","Asia"],
+["India","Asia"],
+["Indonesia","Asia"],
+["Iran","Asia"],
+["Iraq","Asia"],
+["Israel","Asia"],
+["Japan","Asia"],
+["Jordan","Asia"],
+["Kazakhstan","Asia"],
+["Kuwait","Asia"],
+["Kyrgyzstan","Asia"],
+["Laos","Asia"],
+["Lebanon","Asia"],
+["Malaysia","Asia"],
+["Maldives","Asia"],
+["Mongolia","Asia"],
+["Myanmar","Asia"],
+["Nepal","Asia"],
+["North Korea","Asia"],
+["Oman","Asia"],
+["Pakistan","Asia"],
+["Palestine","Asia"],
+["Philippines","Asia"],
+["Qatar","Asia"],
+["Saudi Arabia","Asia"],
+["Singapore","Asia"],
+["South Korea","Asia"],
+["Sri Lanka","Asia"],
+["Syria","Asia"],
+["Tajikistan","Asia"],
+["Thailand","Asia"],
+["Timor-Leste","Asia"],
+["Turkey","Asia"],
+["Turkmenistan","Asia"],
+["United Arab Emirates","Asia"],
+["Uzbekistan","Asia"],
+["Vietnam","Asia"],
+["Yemen","Asia"],
+
+/* EUROPE */
+
+["Albania","Europe"],
+["Andorra","Europe"],
+["Austria","Europe"],
+["Belarus","Europe"],
+["Belgium","Europe"],
+["Bosnia and Herzegovina","Europe"],
+["Bulgaria","Europe"],
+["Croatia","Europe"],
+["Czechia","Europe"],
+["Denmark","Europe"],
+["Estonia","Europe"],
+["Finland","Europe"],
+["France","Europe"],
+["Germany","Europe"],
+["Greece","Europe"],
+["Holy See","Europe"],
+["Hungary","Europe"],
+["Iceland","Europe"],
+["Ireland","Europe"],
+["Italy","Europe"],
+["Latvia","Europe"],
+["Liechtenstein","Europe"],
+["Lithuania","Europe"],
+["Luxembourg","Europe"],
+["Malta","Europe"],
+["Moldova","Europe"],
+["Monaco","Europe"],
+["Montenegro","Europe"],
+["Netherlands","Europe"],
+["North Macedonia","Europe"],
+["Norway","Europe"],
+["Poland","Europe"],
+["Portugal","Europe"],
+["Romania","Europe"],
+["Russia","Europe"],
+["San Marino","Europe"],
+["Serbia","Europe"],
+["Slovakia","Europe"],
+["Slovenia","Europe"],
+["Spain","Europe"],
+["Sweden","Europe"],
+["Switzerland","Europe"],
+["Ukraine","Europe"],
+["United Kingdom","Europe"],
+
+/* AFRICA */
+
+["Algeria","Africa"],
+["Angola","Africa"],
+["Benin","Africa"],
+["Botswana","Africa"],
+["Burkina Faso","Africa"],
+["Burundi","Africa"],
+["Cabo Verde","Africa"],
+["Cameroon","Africa"],
+["Central African Republic","Africa"],
+["Chad","Africa"],
+["Comoros","Africa"],
+["Congo","Africa"],
+["Côte d'Ivoire","Africa"],
+["Democratic Republic of the Congo","Africa"],
+["Djibouti","Africa"],
+["Egypt","Africa"],
+["Equatorial Guinea","Africa"],
+["Eritrea","Africa"],
+["Eswatini","Africa"],
+["Ethiopia","Africa"],
+["Gabon","Africa"],
+["Gambia","Africa"],
+["Ghana","Africa"],
+["Guinea","Africa"],
+["Guinea-Bissau","Africa"],
+["Kenya","Africa"],
+["Lesotho","Africa"],
+["Liberia","Africa"],
+["Libya","Africa"],
+["Madagascar","Africa"],
+["Malawi","Africa"],
+["Mali","Africa"],
+["Mauritania","Africa"],
+["Mauritius","Africa"],
+["Morocco","Africa"],
+["Mozambique","Africa"],
+["Namibia","Africa"],
+["Niger","Africa"],
+["Nigeria","Africa"],
+["Rwanda","Africa"],
+["Sao Tome and Principe","Africa"],
+["Senegal","Africa"],
+["Seychelles","Africa"],
+["Sierra Leone","Africa"],
+["Somalia","Africa"],
+["South Africa","Africa"],
+["South Sudan","Africa"],
+["Sudan","Africa"],
+["Tanzania","Africa"],
+["Togo","Africa"],
+["Tunisia","Africa"],
+["Uganda","Africa"],
+["Zambia","Africa"],
+["Zimbabwe","Africa"],
+
+/* NORTH AMERICA */
+
+["Antigua and Barbuda","North America"],
+["Bahamas","North America"],
+["Barbados","North America"],
+["Belize","North America"],
+["Canada","North America"],
+["Costa Rica","North America"],
+["Cuba","North America"],
+["Dominica","North America"],
+["Dominican Republic","North America"],
+["El Salvador","North America"],
+["Grenada","North America"],
+["Guatemala","North America"],
+["Haiti","North America"],
+["Honduras","North America"],
+["Jamaica","North America"],
+["Mexico","North America"],
+["Nicaragua","North America"],
+["Panama","North America"],
+["Saint Kitts and Nevis","North America"],
+["Saint Lucia","North America"],
+["Saint Vincent and the Grenadines","North America"],
+["Trinidad and Tobago","North America"],
+["United States","North America"],
+
+/* SOUTH AMERICA */
+
+["Argentina","South America"],
+["Bolivia","South America"],
+["Brazil","South America"],
+["Chile","South America"],
+["Colombia","South America"],
+["Ecuador","South America"],
+["Guyana","South America"],
+["Paraguay","South America"],
+["Peru","South America"],
+["Suriname","South America"],
+["Uruguay","South America"],
+["Venezuela","South America"],
+
+/* OCEANIA */
+
+["Australia","Oceania"],
+["Fiji","Oceania"],
+["Kiribati","Oceania"],
+["Marshall Islands","Oceania"],
+["Micronesia","Oceania"],
+["Nauru","Oceania"],
+["New Zealand","Oceania"],
+["Palau","Oceania"],
+["Papua New Guinea","Oceania"],
+["Samoa","Oceania"],
+["Solomon Islands","Oceania"],
+["Tonga","Oceania"],
+["Tuvalu","Oceania"],
+["Vanuatu","Oceania"]
+
+];
+
+
+const continentIcon = {
+  "Asia": "🌏",
+  "Europe": "🌍",
+  "Africa": "🌍",
+  "North America": "🌎",
+  "South America": "🌎",
+  "Oceania": "🌊"
+};
+
+
+const specialTags = {
+
+  "Switzerland":
+    "The Swiss Alps",
+
+  "Norway":
+    "Fjords & Northern Lights",
+
+  "Japan":
+    "Tokyo · Kyoto · Mount Fuji",
+
+  "Italy":
+    "Rome · Venice · Amalfi Coast",
+
+  "Iceland":
+    "Waterfalls · Aurora · Black Beaches",
+
+  "New Zealand":
+    "Milford Sound · Queenstown · Southern Alps",
+
+  "Canada":
+    "Banff · Lake Louise · Canadian Rockies",
+
+  "Australia":
+    "Great Barrier Reef · Sydney · Uluru"
+
+};
+
+
+const nextDestinations = [
+  "Switzerland",
+  "Norway"
+];
+
+
+const container =
+  document.getElementById("countries");
+
+const count =
+  document.getElementById("count");
+
+
+function render(filter = "All") {
+
+  container.innerHTML = "";
+
+  const filtered =
+    filter === "All"
+      ? countries
+      : countries.filter(c => c[1] === filter);
+
+  count.textContent =
+    `${filtered.length} destinations`;
+
+  filtered.forEach(([name, continent]) => {
+
+    const isNext =
+      nextDestinations.includes(name);
+
+    const tag =
+      specialTags[name] ||
+      "Discover · Explore · Remember";
+
+    const card =
+      document.createElement("article");
+
+    card.className = "country";
+
+    card.innerHTML = `
+
+      <div class="country-top">
+
+        <div class="continent">
+          ${continentIcon[continent]}
+        </div>
+
+        <div class="status">
+          ${
+            isNext
+              ? "✈ NEXT DESTINATION"
+              : "○ ON THE LIST"
+          }
+        </div>
+
+      </div>
+
+      <h3>${name}</h3>
+
+      <p>${tag}</p>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+document
+  .querySelectorAll(".filter")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(".filter")
+        .forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+      button.classList.add("active");
+
+      render(button.dataset.filter);
+
+    });
+
+  });
+
+
+render();
+
+</script>
+
+</body>
+          </html>
